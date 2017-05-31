@@ -7,7 +7,7 @@ OpenFood's API could be
 
 */
 
-import GenericAPI from '../../SalatheGroupAPI/GenericAPI';
+import { GenericAPI } from 'salathegroup_apis_common';
 
 export default class OpenFoodAPI extends GenericAPI {
 
