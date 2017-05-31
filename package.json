@@ -7,7 +7,7 @@
   "version": "0.0.2",
   "description": "OpenFood API.",
   "author": "Boris Conforty <boris@conforty.net>, Salathé Group, EPFL, Switzerland",
-  "main": "V1.js",
+  "main": "V3.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
