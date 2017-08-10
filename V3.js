@@ -51,7 +51,7 @@ export default class OpenFoodAPI extends GenericAPI {
     let kind = 'products';
     if (params.id) kind += '/';
     return new Promise((resolve, reject) => {
-      this.requestURL('GET', kind, query, {})
+      this.requestURL('GET', kind, query)
       .then((response) => {
         if (response && response.data && Array.isArray(response.data)) {
           resolve(response.data);
