@@ -1,7 +1,7 @@
 /*
 
 This is just a draft of what a JavaScript consumption of
-OpenFood's API could be
+FoodRepo's API could be
 
 */
 
@@ -110,7 +110,7 @@ function requestSearchURL(endpoint, terms, callback) {
   requestPostURL(endpoint, 'products/_search', terms, callback);
 }
 
-export default class OpenFoodAPI {
+export default class FoodRepoAPI {
 
   host: string;
   version: string;
@@ -121,14 +121,14 @@ export default class OpenFoodAPI {
   static NUTRIENTS = 'nutrients';
 
   /*
-  OpenFood API per se
+  FoodRepo API per se
   */
   constructor(apiKey: string, host: string = '', version: string = '2') {
     if (!apiKey) {
-      throw new Error('OpenFood endpoints need an API key');
+      throw new Error('FoodRepo endpoints need an API key');
     }
-    // this.host = host || 'https://openfood-staging.herokuapp.com';
-    this.host = host || 'https://www.openfood.ch';
+    // this.host = host || 'https://foodrepo-staging.herokuapp.com';
+    this.host = host || 'https://www.foodrepo.ch';
     this.version = version;
     this.apiKey = apiKey;
   }
