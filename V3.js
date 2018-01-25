@@ -3,15 +3,15 @@
 /*
 
 This is just a draft of what a JavaScript consumption of
-OpenFood's API could be
+FoodRepo's API could be
 
 */
 
 import { GenericAPI } from 'salathegroup_apis_common';
 
-export default class OpenFoodAPI extends GenericAPI {
+export default class FoodRepoAPI extends GenericAPI {
 
-  static defaultHost = 'https://www.openfood.ch';
+  static defaultHost = 'https://www.foodrepo.ch';
   static revision = 'ALPHA';
   static ALL_PRODUCT_FIELDS = [
     'id',
@@ -33,7 +33,7 @@ export default class OpenFoodAPI extends GenericAPI {
   ];
 
   constructor(apiKey: string, host: string = '', version: string = '3') {
-    super(apiKey, host || OpenFoodAPI.defaultHost, version);
+    super(apiKey, host || FoodRepoAPI.defaultHost, version);
   }
 
   requestSearchURL(terms: Object): Promise<Object> {
