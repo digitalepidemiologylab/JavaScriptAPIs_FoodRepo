@@ -1,20 +1,21 @@
 {
-  "name": "openfood",
+  "name": "foodrepo",
   "repository": {
     "type": "git",
-    "url": "https://github.com/salathegroup/JavaScriptAPIs_OpenFood.git"
+    "url": "https://github.com/salathegroup/JavaScriptAPIs_FoodRepo.git"
   },
   "version": "0.0.3",
-  "description": "OpenFood API.",
+  "description": "FoodRepo API.",
   "author": "Boris Conforty <boris@conforty.net>, Salathé Group, EPFL, Switzerland",
   "main": "V3.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "MIT",
-  "homepage": "https://github.com/salathegroup/JavaScriptAPIs_OpenFood.git",
+  "homepage": "https://github.com/salathegroup/JavaScriptAPIs_FoodRepo.git",
   "keywords": [
     "openfood",
+    "foodrepo",
     "react",
     "nodejs",
     "food",
