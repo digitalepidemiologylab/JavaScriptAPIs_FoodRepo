@@ -1,4 +1,4 @@
-export default class OpenFoodProduct {
+export default class FoodRepoProduct {
   constructor(json) {
     this.json = json || {};
   }
