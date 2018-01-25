@@ -10,7 +10,6 @@ FoodRepo's API could be
 import { GenericAPI } from 'salathegroup_apis_common';
 
 export default class FoodRepoAPI extends GenericAPI {
-
   static defaultHost = 'https://www.foodrepo.ch';
   static revision = 'ALPHA';
   static ALL_PRODUCT_FIELDS = [
@@ -51,20 +50,25 @@ export default class FoodRepoAPI extends GenericAPI {
     let kind = 'products';
     if (params.id) kind += '/';
     return new Promise((resolve, reject) => {
-      this.requestURL('GET', kind, query)
-      .then((response) => {
-        if (response && response.data && Array.isArray(response.data)) {
-          resolve(response.data);
-        } else {
-          reject(new Error('Couldn\'t get products'));
-        }
-      }, (error) => {
-        reject(error);
-      });
+      this.requestURL('GET', kind, query).then(
+        (response) => {
+          if (response && response.data && Array.isArray(response.data)) {
+            resolve(response.data);
+          } else {
+            reject(new Error('Couldn\'t get products'));
+          }
+        },
+        (error) => {
+          reject(error);
+        },
+      );
     });
   }
 
-  productsByBarcodes(barcodes: string[], excludes: string[]): Promise<Object[]> {
+  productsByBarcodes(
+    barcodes: string[],
+    excludes: string[],
+  ): Promise<Object[]> {
     return this.requestProductURL({ excludes, barcodes });
   }
 
@@ -72,7 +76,11 @@ export default class FoodRepoAPI extends GenericAPI {
     return this.requestProductURL({ id, excludes });
   }
 
-  products(pageNumber: number, pageSize: number, excludes: string[]): Promise<Object[]> {
+  products(
+    pageNumber: number,
+    pageSize: number,
+    excludes: string[],
+  ): Promise<Object[]> {
     return this.requestProductURL({ pageNumber, pageSize, excludes });
   }
 

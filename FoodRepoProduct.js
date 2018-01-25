@@ -1,3 +1,5 @@
+// @flow
+
 export default class FoodRepoProduct {
   constructor(json) {
     this.json = json || {};

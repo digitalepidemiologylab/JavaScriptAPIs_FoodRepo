@@ -3,6 +3,8 @@
 This is just a draft of what a JavaScript consumption of
 FoodRepo's API could be
 
+@flow
+
 */
 
 /*
@@ -13,7 +15,11 @@ HELPERS
 // name=value1&name=value2=name=value3
 
 function arrayToQuery(values, name: string) {
-  if (typeof values === 'undefined' || values === null || typeof name !== 'string') {
+  if (
+    typeof values === 'undefined' ||
+    values === null ||
+    typeof name !== 'string'
+  ) {
     return null;
   }
   const valuesArray = Array.isArray(values) ? values : [values];
@@ -21,7 +27,13 @@ function arrayToQuery(values, name: string) {
 }
 
 // AJAX helper
-function reachUrl(method: string, url: string, headers: string[][], data, callback: Function) {
+function reachUrl(
+  method: string,
+  url: string,
+  headers: string[][],
+  data,
+  callback: Function,
+) {
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function onreadystatechange() {
     if (this.readyState === 4) {
@@ -63,9 +75,7 @@ function requestURL(method, endpoint, kind, query, postData, callback) {
 
   // Authorization token is sent in the request header
   // Example: Authorization: Token token='582736451287365'
-  const headers = [
-    ['Authorization', `Token token="${endpoint.apiKey}"`],
-  ];
+  const headers = [['Authorization', `Token token="${endpoint.apiKey}"`]];
 
   function handler(ajax) {
     let response;
@@ -73,7 +83,13 @@ function requestURL(method, endpoint, kind, query, postData, callback) {
       response = JSON.parse(ajax.responseText);
       const createReachUrlCall = function createReachUrlCall(name) {
         return function reachUrlCall() {
-          reachUrl(method, unescape(response.links[name]), headers, postData, handler);
+          reachUrl(
+            method,
+            unescape(response.links[name]),
+            headers,
+            postData,
+            handler,
+          );
         };
       };
       response.next = createReachUrlCall('next');
@@ -93,7 +109,14 @@ function requestPostURL(endpoint, kind, postData, callback) {
   requestURL('POST', endpoint, kind, null, postData, callback);
 }
 
-function requestProductURL(endpoint, id, includes, pageNumber, pageSize, callback) {
+function requestProductURL(
+  endpoint,
+  id,
+  includes,
+  pageNumber,
+  pageSize,
+  callback,
+) {
   const query = [];
   const includesQuery = arrayToQuery(includes, 'include');
   if (includesQuery) query.push(includesQuery);
@@ -111,7 +134,6 @@ function requestSearchURL(endpoint, terms, callback) {
 }
 
 export default class FoodRepoAPI {
-
   host: string;
   version: string;
   apiKey: string;
