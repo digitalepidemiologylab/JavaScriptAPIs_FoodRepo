@@ -6,7 +6,8 @@
   },
   "version": "0.0.3",
   "description": "FoodRepo API.",
-  "author": "Boris Conforty <boris@conforty.net>, Salathé Group, EPFL, Switzerland",
+  "author":
+    "Boris Conforty <boris@conforty.net>, Salathé Group, EPFL, Switzerland",
   "main": "V3.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,6 +25,7 @@
     "salathegroup"
   ],
   "dependencies": {
-    "salathegroup_apis_common": "https://github.com/salathegroup/JavaScriptAPIs_common.git"
+    "salathegroup_apis_common":
+      "https://github.com/salathegroup/JavaScriptAPIs_common.git"
   }
 }
