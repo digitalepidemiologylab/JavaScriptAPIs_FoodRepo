@@ -7,7 +7,14 @@ FoodRepo's API could be
 
 */
 
-import { GenericAPI } from 'salathegroup_apis_common';
+import GenericAPI from 'salathegroup_apis_common';
+
+type TProductParams = {
+  excludes?: Array<string>,
+  barcodes?: Array<string>,
+  pageNumber?: number,
+  pageSize?: number,
+};
 
 export default class FoodRepoAPI extends GenericAPI {
   static defaultHost = 'https://www.foodrepo.ch';
@@ -39,7 +46,7 @@ export default class FoodRepoAPI extends GenericAPI {
     return this.requestPostURL('products/_search', terms);
   }
 
-  requestProductURL(params: Object): Promise<Object[]> {
+  requestProductURL(params: TProductParams): Promise<Object[]> {
     const query = [];
 
     if (params.excludes) query.push(`excludes=${params.excludes.join(',')}`);
