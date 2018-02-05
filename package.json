@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/salathegroup/JavaScriptAPIs_FoodRepo.git"
   },
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "FoodRepo API.",
   "author":
     "Boris Conforty <boris@conforty.net>, Salathé Group, EPFL, Switzerland",
