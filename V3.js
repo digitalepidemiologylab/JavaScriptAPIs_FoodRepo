@@ -56,7 +56,11 @@ export default class FoodRepoAPI extends GenericAPI {
     if (params.pageSize) query.push(`page[size]=${params.pageSize}`);
 
     return new Promise((resolve, reject) => {
-      this.requestURL('GET', 'products', query).then(
+      this.requestURL(
+        'GET',
+        `products${params.id ? `/${params.id}` : ''}`,
+        query,
+      ).then(
         (response) => {
           if (response && response.data && Array.isArray(response.data)) {
             resolve(response.data);
