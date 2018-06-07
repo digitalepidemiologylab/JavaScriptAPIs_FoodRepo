@@ -82,7 +82,7 @@ export default class FoodRepoAPI extends GenericAPI {
     return this.requestProductURL({ excludes, barcodes });
   }
 
-  productById(id: string, excludes: string[]): Promise<Object[]> {
+  productById(id: number, excludes: string[]): Promise<Object[]> {
     return this.requestProductURL({ id, excludes });
   }
 
