@@ -10,6 +10,7 @@ FoodRepo's API could be
 import GenericAPI from 'salathegroup_apis_common';
 
 type TProductParams = {
+  id?: number,
   excludes?: Array<string>,
   barcodes?: Array<string>,
   pageNumber?: number,
@@ -54,10 +55,8 @@ export default class FoodRepoAPI extends GenericAPI {
     if (params.pageNumber) query.push(`page[number]=${params.pageNumber}`);
     if (params.pageSize) query.push(`page[size]=${params.pageSize}`);
 
-    let kind = 'products';
-    if (params.id) kind += '/';
     return new Promise((resolve, reject) => {
-      this.requestURL('GET', kind, query).then(
+      this.requestURL('GET', 'products', query).then(
         (response) => {
           if (response && response.data && Array.isArray(response.data)) {
             resolve(response.data);
