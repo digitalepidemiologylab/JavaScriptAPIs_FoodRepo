@@ -19,7 +19,9 @@ type TProductParams = {
 
 export default class FoodRepoAPI extends GenericAPI {
   static defaultHost = 'https://www.foodrepo.org';
+
   static revision = 'ALPHA';
+
   static ALL_PRODUCT_FIELDS = [
     'id',
     'barcode',

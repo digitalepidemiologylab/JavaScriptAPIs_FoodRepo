@@ -16,9 +16,9 @@ HELPERS
 
 function arrayToQuery(values, name: string) {
   if (
-    typeof values === 'undefined' ||
-    values === null ||
-    typeof name !== 'string'
+    typeof values === 'undefined'
+    || values === null
+    || typeof name !== 'string'
   ) {
     return null;
   }
@@ -135,11 +135,15 @@ function requestSearchURL(endpoint, terms, callback) {
 
 export default class FoodRepoAPI {
   host: string;
+
   version: string;
+
   apiKey: string;
 
   static revision = 'ALPHA';
+
   static IMAGES = 'images';
+
   static NUTRIENTS = 'nutrients';
 
   /*
