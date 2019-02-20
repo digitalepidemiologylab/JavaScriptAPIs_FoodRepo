@@ -39,7 +39,7 @@ export default class FoodRepoAPI extends GenericAPI {
       host || FoodRepoAPI.defaultHost,
       version,
       'auto',
-      'multipart/form-data'
+      'multipart/form-data',
     );
   }
 
