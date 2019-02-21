@@ -15,7 +15,7 @@ async function addImageToData(image, idx, data) {
   // Android RN networking doesn't support uri: data:image/jpeg;base64,....
   // nor base64: ...
 
-  const re = /^data:(.*\/.*?)(;base64)?,(.*)/;
+  const re = /^data:(\w*\/\w*?)(;base64)?,(.*)/;
   const matches = image.match(re);
   let type;
   let value;
