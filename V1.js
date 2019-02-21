@@ -14,18 +14,22 @@ import FileSystem from 'react-native-fs';
 async function addImageToData(image, idx, data) {
   // Android RN networking doesn't support uri: data:image/jpeg;base64,....
   // nor base64: ...
-
-  const re = /^data:(\w*\/\w*?)(;base64)?,(.*)/;
+  const re = /^data:(\w*\/\w*?)(;base64)?,/;
   const matches = image.match(re);
   let type;
-  let value;
   let imagePath = null;
   const fileName = `${Date.now()}-${idx}.jpg`;
   if (matches) {
     let isBase64;
-    [, type, isBase64, value] = matches;
+    [, type, isBase64] = matches;
     if (isBase64) {
-      imagePath = `${FileSystem.TemporaryDirectoryPath}${fileName}`;
+      // Get base64 and remove line breaks
+      const value = image.substr(matches[0].length).replace(/\s+/g, '');
+      let tempPath = FileSystem.TemporaryDirectoryPath;
+      if (!/[\\/]$/.test(tempPath)) {
+        tempPath += '/';
+      }
+      imagePath = `${tempPath}${fileName}`;
       await FileSystem.writeFile(imagePath, value, 'base64');
     }
   } else {
