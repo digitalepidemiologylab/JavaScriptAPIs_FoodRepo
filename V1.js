@@ -9,22 +9,33 @@ FoodRepo's API could be
 
 import GenericAPI from 'salathegroup_apis_common';
 
-function addImageToData(image, idx, data) {
-  if (idx === 0) {
-    data.append(`submission[submission_images_attributes][${idx}][front]`, 'true');
-  }
-  const re = /^data:(.*\/.*?),/;
+import FileSystem from 'react-native-fs';
+
+async function addImageToData(image, idx, data) {
+  // Android RN networking doesn't support uri: data:image/jpeg;base64,....
+  // nor base64: ...
+
+  const re = /^data:(.*\/.*?)(;base64)?,(.*)/;
   const matches = image.match(re);
   let type;
+  let value;
+  let imagePath = null;
+  const fileName = `${Date.now()}-${idx}.jpg`;
   if (matches) {
-    [, type] = matches;
+    let isBase64;
+    [, type, isBase64, value] = matches;
+    if (isBase64) {
+      imagePath = `${FileSystem.TemporaryDirectoryPath}${fileName}`;
+      await FileSystem.writeFile(imagePath, value, 'base64');
+    }
   } else {
     type = 'image/jpeg';
   }
-  data.append(`submission[submission_images_attributes][${idx}][data]`, {
-    name: `${idx}.jpg`,
+
+  await data.append(`submission[submission_images_attributes][${idx}][data]`, {
+    name: fileName,
     type,
-    uri: image,
+    uri: imagePath ? `file://${imagePath}` : image,
   });
 }
 
@@ -43,14 +54,21 @@ export default class FoodRepoAPI extends GenericAPI {
     );
   }
 
-  postSubmission(barcode: string, country: string, images: string[]) {
+  async postSubmission(barcode: string, country: string, images: string[]) {
     if (!barcode || !country || !images) {
       throw new Error('Invalid arguments in postSubmission');
     }
     const data = new FormData();
     data.append('submission[barcode]', barcode);
     data.append('submission[country]', country);
-    images.forEach((image, idx) => { addImageToData(image, idx, data); });
+    const results = [];
+    images.forEach(async (image, idx) => {
+      if (idx === 0) {
+        data.append(`submission[submission_images_attributes][${idx}][front]`, 'true');
+      }
+      results.push(addImageToData(image, idx, data));
+    });
+    await Promise.all(results);
     return this.requestPostURL('submissions', data);
 
     /*
