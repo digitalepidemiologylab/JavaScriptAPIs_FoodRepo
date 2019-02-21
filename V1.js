@@ -32,7 +32,8 @@ async function addImageToData(image, idx, data) {
     type = 'image/jpeg';
   }
 
-  await data.append(`submission[submission_images_attributes][${idx}][data]`, {
+  // $FlowExpectedError
+  data.append(`submission[submission_images_attributes][${idx}][data]`, {
     name: fileName,
     type,
     uri: imagePath ? `file://${imagePath}` : image,
@@ -62,7 +63,7 @@ export default class FoodRepoAPI extends GenericAPI {
     data.append('submission[barcode]', barcode);
     data.append('submission[country]', country);
     const results = [];
-    images.forEach(async (image, idx) => {
+    images.forEach((image, idx) => {
       if (idx === 0) {
         data.append(`submission[submission_images_attributes][${idx}][front]`, 'true');
       }
