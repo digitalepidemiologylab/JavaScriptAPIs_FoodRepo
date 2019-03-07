@@ -70,9 +70,7 @@ export default class FoodRepoAPI extends GenericAPI {
             reject(new Error('Couldn\'t get products'));
           }
         },
-        (error) => {
-          reject(error);
-        },
+        reject,
       );
     });
   }
