@@ -17,6 +17,12 @@ type TProductParams = {
   pageSize?: number,
 };
 
+type TSubmissionReportParams = {
+  barcodes: string[],
+  excludes?: Array<string>,
+  activeOnly?: boolean,
+};
+
 export default class FoodRepoAPI extends GenericAPI {
   static defaultHost = 'https://www.foodrepo.org';
 
@@ -43,6 +49,20 @@ export default class FoodRepoAPI extends GenericAPI {
 
   constructor(apiKey: string, host: string = '', version: string = '3') {
     super(apiKey, host || FoodRepoAPI.defaultHost, version);
+  }
+
+  submissionReport(params: TSubmissionReportParams) {
+    const query = [];
+
+    const { barcodes, excludes, activeOnly } = params;
+    query.push(`barcodes=${barcodes.join(',')}`);
+    if (excludes) query.push(`excludes=${excludes.join(',')}`);
+    query.push(`active-only=${activeOnly ? 'true' : 'false'}`);
+    return this.requestURL(
+      'GET',
+      'submission_report',
+      query,
+    );
   }
 
   requestSearchURL(terms: Object): Promise<Object> {
