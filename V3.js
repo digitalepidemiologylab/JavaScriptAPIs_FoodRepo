@@ -52,10 +52,14 @@ export default class FoodRepoAPI extends GenericAPI {
   requestProductURL(params: TProductParams): Promise<Object[]> {
     const query = [];
 
-    if (params.excludes) query.push(`excludes=${params.excludes.join(',')}`);
-    if (params.barcodes) query.push(`barcodes=${params.barcodes.join(',')}`);
-    if (params.pageNumber) query.push(`page[number]=${params.pageNumber}`);
-    if (params.pageSize) query.push(`page[size]=${params.pageSize}`);
+    const {
+      barcodes, excludes, pageNumber, pageSize,
+    } = params;
+
+    if (excludes) query.push(`excludes=${excludes.join(',')}`);
+    if (barcodes) query.push(`barcodes=${barcodes.join(',')}`);
+    if (pageNumber) query.push(`page[number]=${pageNumber}`);
+    if (pageSize) query.push(`page[size]=${pageSize}`);
 
     return new Promise((resolve, reject) => {
       this.requestURL(
