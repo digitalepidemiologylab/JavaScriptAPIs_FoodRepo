@@ -58,11 +58,23 @@ export default class FoodRepoAPI extends GenericAPI {
     query.push(`barcodes=${barcodes.join(',')}`);
     if (excludes) query.push(`excludes=${excludes.join(',')}`);
     query.push(`active-only=${activeOnly ? 'true' : 'false'}`);
-    return this.requestURL(
-      'GET',
-      'submission_report',
-      query,
-    );
+    return new Promise((resolve, reject) => {
+      this.requestURL(
+        'GET',
+        'submission_report',
+        query,
+      )
+      .then(
+        (response) => {
+          if (response && response.data && response.data.submissions && Array.isArray(response.data.submissions)) {
+            resolve(response.data.submissions);
+          } else {
+            reject(new Error('Couldn\'t get submission report'));
+          }
+        }
+      )
+      .catch(reject);
+    });
   }
 
   requestSearchURL(terms: Object): Promise<Object> {
