@@ -66,7 +66,9 @@ export default class FoodRepoAPI extends GenericAPI {
       )
       .then(
         (response) => {
-          if (response && response.data && response.data.submissions && Array.isArray(response.data.submissions)) {
+          if (response
+            && response.data
+            && Array.isArray(response.data.submissions)) {
             resolve(response.data.submissions);
           } else {
             reject(new Error('Couldn\'t get submission report'));
