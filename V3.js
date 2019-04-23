@@ -51,7 +51,7 @@ export default class FoodRepoAPI extends GenericAPI {
     super(apiKey, host || FoodRepoAPI.defaultHost, version);
   }
 
-  submissionReport(params: TSubmissionReportParams) {
+  submissionReport(params: TSubmissionReportParams): Promise<Object[]> {
     const query = [];
 
     const { barcodes, excludes, activeOnly } = params;
