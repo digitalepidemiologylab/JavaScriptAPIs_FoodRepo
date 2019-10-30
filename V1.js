@@ -78,6 +78,26 @@ export default class FoodRepoAPI extends GenericAPI {
       results.push(addImageToData(image, idx, data));
     });
     await Promise.all(results);
-    return this.requestPostURL('submissions', data);
+    const fileNames = [];
+    // $FlowExpectedError Flow doesn't know about getParts
+    data.getParts().forEach(p => {
+      if (p.uri && p.uri.startsWith('file://')) {
+        fileNames.push(p.uri);
+      }
+    });
+    return new Promise((resolve, reject) => {
+      this.requestPostURL('submissions', data)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(e => {
+        reject(e);
+      })
+      .finally(() => {
+        fileNames.forEach(f => {
+          FileSystem.unlink(f);
+        })
+      });
+    });
   }
 }
