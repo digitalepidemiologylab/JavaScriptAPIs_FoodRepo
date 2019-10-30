@@ -31,6 +31,7 @@ export default class FoodRepoAPI extends GenericAPI {
   static ALL_PRODUCT_FIELDS = [
     'id',
     'barcode',
+    'country',
     'display_name_translations',
     'origin_translations',
     'name_translations',
