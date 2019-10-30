@@ -59,6 +59,10 @@ export default class FoodRepoAPI extends GenericAPI {
     );
   }
 
+  async getBarcodes(timeout?: number) {
+    return this.requestGetURL('barcodes', timeout);
+  }
+
   async postSubmission(barcode: string, country: string, images: string[]) {
     if (!barcode || !country || !images) {
       throw new Error('Invalid arguments in postSubmission');
