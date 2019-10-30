@@ -84,7 +84,7 @@ export default class FoodRepoAPI extends GenericAPI {
     return this.requestPostURL('products/_search', terms);
   }
 
-  requestProductURL(params: TProductParams): Promise<Object[]> {
+  requestProductURL(params: TProductParams, timeout?: number): Promise<Object[]> {
     const query = [];
 
     const {
@@ -101,6 +101,8 @@ export default class FoodRepoAPI extends GenericAPI {
         'GET',
         `products${params.id ? `/${params.id}` : ''}`,
         query,
+        undefined,
+        timeout,
       ).then(
         (response) => {
           if (response && response.data && Array.isArray(response.data)) {
@@ -117,8 +119,9 @@ export default class FoodRepoAPI extends GenericAPI {
   productsByBarcodes(
     barcodes: string[],
     excludes: string[],
+    timeout?: number,
   ): Promise<Object[]> {
-    return this.requestProductURL({ excludes, barcodes });
+    return this.requestProductURL({ excludes, barcodes }, timeout);
   }
 
   productById(id: number, excludes: string[]): Promise<Object[]> {
