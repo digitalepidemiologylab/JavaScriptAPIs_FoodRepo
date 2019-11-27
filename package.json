@@ -25,7 +25,7 @@
     "salathegroup"
   ],
   "dependencies": {
-    "react-native-fs": "^2.13.3",
+    "react-native-fs": "2.16.2",
     "salathegroup_apis_common":
       "https://github.com/salathegroup/JavaScriptAPIs_common.git"
   }
